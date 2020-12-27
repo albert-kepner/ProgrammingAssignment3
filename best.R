@@ -4,8 +4,8 @@ best <- function(state, outcome=NA) {
   ## Read outcome data
   
   ## Example:
-  state <- "PA"
-  outcome <- "pneumonia"
+  ## state <- "PA"
+  ## outcome <- "pneumonia"
   
   data1 <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
