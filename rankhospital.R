@@ -8,6 +8,7 @@ rankhospital <- function(state, outcome, num = "best") {
   ## Example:
   ## state <- "PA"
   ## outcome <- "pneumonia"
+  ## num = 1
   
   data1 <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
@@ -48,16 +49,17 @@ rankhospital <- function(state, outcome, num = "best") {
   
   max_rank <- max(sorted_data$V3)
   
-  if(is.integer(num)) {
+  if(is.numeric(num)) {
     if(num > max_rank | num < 1) {
       return (NA)
     } else {
-      return (sorted_data[1, num])
+      num <- as.integer(num)
+      return (sorted_data[num, 1])
     }
   } else if(num == "best") {
     return (sorted_data[1, 1])
   } else if(num == "worst") {
-    return (sorted_data[1, max_rank])
+    return (sorted_data[max_rank, 1])
   } else {
     return (NA)
   }
