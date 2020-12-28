@@ -48,25 +48,20 @@ rankall <- function(outcome, num = "best") {
   
   by_state <- split(good_data, good_data$state)
   
-  df <- data.frame(hospital=character(),
-                   state=character(),
-                   stringsAsFactors=TRUE)
-  
+  accumulator <- character()
+
   for( s0 in by_state[1:3]) {
-    
-    print(class(s0))
-    print(head(s0,2))
     s1 <- data.frame(s0)
-    print(head(s1,2))
     s2 <- rankstate(s1, num)
-    print(paste('s2 = ',paste(s2, collapse=" ")))
-    df <- rbind(df, s2, byrow=TRUE)
-    print(warnings())
-    print("df = ")
-    print(df)
-    
+    accumulator <- c(accumulator, s2)
   }
-  names(df) <- c('hospital','state')
+  accumulator
+  
+  m <- matrix(accumulator, ncol=2, byrow=TRUE)
+  m
+  
+  df <- data.frame(m)
+  names(df) <- c("hospital", "state")
   df
   
 }
