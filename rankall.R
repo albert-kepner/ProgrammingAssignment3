@@ -13,8 +13,8 @@ rankall <- function(outcome, num = "best") {
   ## Read outcome data
   
   ## Example:
-  outcome <- "pneumonia"
-  num = 'worst'
+  ## outcome <- "heart failure"
+  ## num = 20
   
   data1 <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
@@ -50,9 +50,8 @@ rankall <- function(outcome, num = "best") {
   
   accumulator <- character()
 
-  for( s0 in by_state[1:3]) {
-    s1 <- data.frame(s0)
-    s2 <- rankstate(s1, num)
+  for( s0 in by_state) {
+    s2 <- rankstate(s0, num)
     accumulator <- c(accumulator, s2)
   }
   accumulator
@@ -82,13 +81,13 @@ rankstate <- function(data, num) {
   } else if(num == 'worst') {
     selected <- sorted_data[nrow(sorted_data), ]
   } else {
-    return (c(NA, good_data[1,1]))
+    return (c(NA, data[1,1]))
   }
   
   if(nrow(selected) == 1) {
     return (c( selected[1,2], selected[1,1]))
   } else {
-    return (c(NA, good_data[1,1]))
+    return (c(NA, data[1,1]))
   }
 
 }
